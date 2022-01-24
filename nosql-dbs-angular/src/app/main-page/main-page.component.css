@@ -1,0 +1,12 @@
+.dbTitle {
+    font-weight: bold;
+}
+
+.dbCard {
+    border: 1px solid #3f3c47;
+    border-radius: 1em;
+}
+
+.cardContent {
+    padding: 1em;
+}

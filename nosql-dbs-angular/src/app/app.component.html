@@ -1,0 +1,30 @@
+<div
+  fxFlex
+  fxFlexFill
+  fxLayout="column wrap"
+  class="mat-app-background appcomp"
+  [ngClass]="isDarkTheme ? 'darkMode' : ''"
+>
+  <div fxFlex fxFlexFill class="app-content" fxLayout="column wrap">
+    <mat-toolbar
+      style="width: 100%;"
+      fxLayout="row wrap"
+      fxLayoutGap="1em"
+      fxLayoutAlign="space-between center"
+    >
+      <div>
+        <a routerLink="/main"><span>NoSQL ispit</span></a>
+      </div>
+      <div>
+        <mat-slide-toggle (change)="toggleTheme()" [checked]="isDarkTheme">
+          <mat-icon *ngIf="isDarkTheme">dark_mode</mat-icon>
+          <mat-icon *ngIf="!isDarkTheme" style="color: white;">light_mode</mat-icon>
+        </mat-slide-toggle>
+      </div>
+    </mat-toolbar>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+    <span class="example-spacer"></span>
+  </div>
+</div>

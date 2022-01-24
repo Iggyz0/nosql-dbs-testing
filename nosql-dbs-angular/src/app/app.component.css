@@ -1,0 +1,12 @@
+.appcomp {
+    min-height: 100vh;
+}
+
+mat-toolbar {
+    background-color: #3f3c47 !important;
+}
+
+a {
+    text-decoration: none;
+    color: white;  
+}

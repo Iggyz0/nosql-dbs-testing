@@ -1,0 +1,97 @@
+<div fxFlex fxLayout="column nowrap" fxLayoutAlign="center center" fxLayoutGap="1em">
+    <div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="1em" style="padding-top: 1.5em;">
+        <p><b>Number of 'files' to run tests with:</b></p>
+        <mat-form-field>
+            <input type="number" matInput #filesToWrite [(ngModel)]="numberOfFilesToWrite" (ngModelChange)="readInputProperty()" [disabled]="disableInput">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="logResults()">Log data to console</button>
+    </div>
+
+    <div fxFlex fxFill fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <div fxFlex="30%" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="1em" class="dbCard">
+            <div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="cardContent" fxLayoutGap="1em">
+                <p class="dbTitle">MySQL</p>
+                <p>{{mysqlMessage}}</p>
+                <div fxFlex fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="0.25em" style="padding-top: 1.5em;">
+                    <button mat-raised-button color="primary" (click)="writeFilesMysql()">Write MySQL files</button>
+                    <button mat-raised-button color="accent" (click)="readFilesMysql()">Read MySQL files</button>
+                </div>
+                <button mat-raised-button color="warn" >Delete MySQL files</button>
+            </div>
+        </div>
+
+        <div fxFlex="30%" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="1em" class="dbCard">
+            <div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="cardContent" fxLayoutGap="1em">
+                <p class="dbTitle">MongoDB</p>
+                <p>{{mongoMessage}}</p>
+                <div fxFlex fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="0.25em" style="padding-top: 1.5em;">
+                    <button mat-raised-button color="primary" (click)="writeFilesMongo()">Write MongoDB files</button>
+                    <button mat-raised-button color="accent" (click)="readFilesMongo()">Read MongoDB files</button>
+                </div>
+                <button mat-raised-button color="warn" >Delete MongoDB files</button>
+            </div>
+        </div>
+
+        <div fxFlex="30%" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="1em" class="dbCard">
+            <div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="cardContent" fxLayoutGap="1em">
+                <p class="dbTitle">Neo4j</p>
+                <p>{{neo4jMessage}}</p>
+                <div fxFlex fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="0.25em" style="padding-top: 1.5em;">
+                    <button mat-raised-button color="primary" (click)="writeFilesNeo4j()">Write Neo4j files</button>
+                    <button mat-raised-button color="accent" (click)="readFilesNeo4j()">Read Neo4j files</button>
+                </div>
+                <button mat-raised-button color="warn" >Delete Neo4j files</button>
+            </div>
+        </div>
+    </div>
+
+    <mat-divider style="width: 95%;"></mat-divider>
+    <div fxFlex style="padding-top: 2em;">
+        <p><b>DATA TABLE</b></p>
+    </div>
+    <!-- Table -->
+    <div fxFlex fxFill>
+        <mat-table #table [dataSource]="readingsDataSource" matSort>
+            <ng-container matColumnDef="No.">
+                <mat-header-cell *matHeaderCellDef disabled>No.</mat-header-cell>
+                <mat-cell *matCellDef="let element; let i = index">{{ (paginatorRefReadings.pageIndex * paginatorRefReadings.pageSize) + (i + 1) }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="db">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Database</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.db }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="numberOfFiles">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Number of files</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.numberOfFiles }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="time">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Time (in seconds)</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.time }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+                <mat-cell *matCellDef="let element">{{ element.type }}</mat-cell>
+            </ng-container>
+
+
+            <div fxFill fxLayoutAlign="center center" *matNoDataRow style="padding: 1em;">
+                <p><b>No data.</b></p>
+            </div>
+
+            <mat-header-row *matHeaderRowDef="displayedColumnsOrders"></mat-header-row>
+            <mat-row *matRowDef="let rows; columns: displayedColumnsOrders;"></mat-row>
+        </mat-table>
+    </div>
+    
+
+    <div fxFlex fxFill fxLayout="row nowrap" fxLayoutAlign="space-between center">
+        <div>
+            <p>Total number of readings: {{ readingsDataSource.data.length }}</p>
+        </div>
+        <mat-form-field>
+            <input matInput name="filterReadings" type="text" (keyup)="doFilterReadings($any($event.target).value)" placeholder="Search readings...">
+        </mat-form-field>
+        <mat-paginator #paginatorRefReadings [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 25]"></mat-paginator>
+      </div>
+</div>
