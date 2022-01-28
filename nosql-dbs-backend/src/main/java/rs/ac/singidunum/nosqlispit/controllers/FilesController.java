@@ -8,7 +8,6 @@ import rs.ac.singidunum.nosqlispit.models.WrapperFileUserModelMysql;
 import rs.ac.singidunum.nosqlispit.models.WrapperFileUserModelNeo4j;
 import rs.ac.singidunum.nosqlispit.services.FilesService;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

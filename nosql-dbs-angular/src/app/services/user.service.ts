@@ -9,7 +9,7 @@ export class UserService {
 
   constructor() {
     this.user = {
-      name: "igor"
+      name: "user"
     };
   }
 }
